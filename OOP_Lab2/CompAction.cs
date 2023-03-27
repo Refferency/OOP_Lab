@@ -17,9 +17,10 @@ namespace OOP_Lab2
             InitializeComponent();
         }
 
-        private void CompAction_Load(object sender, EventArgs e)
+        public CompAction(string id)
         {
-
+            InitializeComponent();
+            textBox1.Text = id;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -43,7 +44,14 @@ namespace OOP_Lab2
                     label2.Visible = true;
                     label2.Text = computer.ToString();
                 }
-            } 
+
+            }
+
+            if (!isFindID)
+            {
+                label2.Visible = true;
+                label2.Text = "Компьютер по такому ID не найден";
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -68,6 +76,12 @@ namespace OOP_Lab2
                     EditComp ec = new EditComp(textBox1.Text);
                     ec.Show();
                 }
+            }
+
+            if (!isFindID)
+            {
+                label2.Visible = true;
+                label2.Text = "Компьютер по такому ID не найден";
             }
         }
 
@@ -95,6 +109,12 @@ namespace OOP_Lab2
                     label2.Text = $"ID компьютера {localId} преобразовано в ID:{computer.ComputerID}";
                 }
             }
+
+            if (!isFindID)
+            {
+                label2.Visible = true;
+                label2.Text = "Компьютер по такому ID не найден";
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -103,9 +123,10 @@ namespace OOP_Lab2
             ComputerUI ui = new ComputerUI();
             ui.Show();
         }
-   
-        
 
-        
+        private void CompAction_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

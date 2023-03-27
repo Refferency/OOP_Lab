@@ -43,12 +43,10 @@ namespace OOP_Lab2
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            CompAction createAct = new CompAction(); //сюда передавать ID
-            createAct.Show();
-            //по выходе из формы с редактированием, на прошлой странице должен сохраняться id компа, с которым только что работали
+            CompAction createAct = new CompAction(localId); 
+            createAct.Show();       
         }
 
-        //информация о выбранных полях
         private void button2_Click(object sender, EventArgs e)
         {
             label1.Visible = false;
@@ -113,103 +111,121 @@ namespace OOP_Lab2
             label5.Visible = false;
             label6.Visible = false;
             label7.Visible = false;
-
-            if (radioButton1.Checked)
+            try
             {
-                label1.Visible = true;
-                if (textBox1.Text != "")
+
+                if (radioButton1.Checked)
                 {
-                    localComp.ProcessorType = textBox1.Text;
-                    label1.Text = "Поле успешно изменено";
+                    label1.Visible = true;
+                    if (textBox1.Text != "")
+                    {
+                        localComp.ProcessorType = MyException.isString(textBox1.Text, "поле процессор");
+                        label1.Text = "Поле успешно изменено";
+                    }
+                    else
+                    {
+                        label1.Text = "Введите новое значение!";
+                    }
                 }
-                else
+
+                if (radioButton2.Checked)
                 {
-                    label1.Text = "Введите новое значение!";
+                    label2.Visible = true;
+                    if (textBox2.Text != "")
+                    {
+                        localComp.ProcessorFrequency = MyException.isDouble(textBox2.Text, "поле частота процессора");
+                        label2.Text = "Поле успешно изменено";
+                    }
+                    else
+                    {
+                        label2.Text = "Введите новое значение!";
+                    }
+                }
+
+                if (radioButton3.Checked)
+                {
+                    label3.Visible = true;
+                    if (textBox3.Text != "")
+                    {
+                        localComp.MemoryCapacity = MyException.isInteger(textBox3.Text, "поле объем ОЗУ");
+                        
+                        label3.Text = "Поле успешно изменено";
+                    }
+                    else
+                    {
+                        
+                        label3.Text = "Введите новое значение!";
+                    }
+                }
+
+                if (radioButton4.Checked)
+                {
+                    label4.Visible = true;
+                    if (textBox4.Text != "")
+                    {
+                        localComp.VideoCard = MyException.isString(textBox4.Text, "поле тип видеокарты");
+                        
+                        label4.Text = "Поле успешно изменено";
+                    }
+                    else
+                    {
+                        
+                        label4.Text = "Введите новое значение!";
+                    }
+                }
+
+                if (radioButton5.Checked)
+                {
+                    label5.Visible = true;
+                    if (textBox5.Text != "")
+                    {
+                        localComp.VideoCapacity = MyException.isInteger(textBox5.Text, "поле объем видеопамяти");
+                        label5.Text = "Поле успешно изменено";
+                    }
+                    else
+                    {
+                        label5.Text = "Введите новое значение!";
+                    }
+                }
+
+                if (radioButton6.Checked)
+                {
+                    label6.Visible = true;
+                    if (textBox6.Text != "")
+                    {
+                        localComp.PowerUnit = MyException.isInteger(textBox6.Text, "поле мощность БП");
+                        label6.Text = "Поле успешно изменено";
+                    }
+                    else
+                    {
+                        label6.Text = "Введите новое значение!";
+                    }
+                }
+
+                if (radioButton7.Checked)
+                {
+                    label7.Visible = true;
+                    if (textBox7.Text != "")
+                    {
+                        localComp.ComputerCost = MyException.isInteger(textBox7.Text, "поле цена");
+                        label7.Text = "Поле успешно изменено";
+                    }
+                    else
+                    {
+                        label7.Text = "Введите новое значение!";
+                    }
                 }
             }
-
-            if (radioButton2.Checked)
+            catch (Exception ex)
             {
-                label2.Visible = true;
-                if (textBox2.Text != "")
-                {
-                    localComp.ProcessorFrequency = Convert.ToDouble(textBox2.Text);
-                    label2.Text = "Поле успешно изменено";
-                }
-                else
-                {
-                    label2.Text = "Введите новое значение!";
-                }
-            }
-
-            if (radioButton3.Checked)
-            {
-                label3.Visible = true;
-                if (textBox3.Text != "")
-                {
-                    localComp.MemoryCapacity = Convert.ToInt32(textBox3.Text);
-                    label3.Text = "Поле успешно изменено";
-                }
-                else
-                {
-                    label3.Text = "Введите новое значение!";
-                }
-            }
-
-            if (radioButton4.Checked)
-            {
-                label4.Visible = true;
-                if (textBox4.Text != "")
-                {
-                    localComp.VideoCard = textBox4.Text;
-                    label4.Text = "Поле успешно изменено";
-                }
-                else
-                {
-                    label4.Text = "Введите новое значение!";
-                }
-            }
-
-            if (radioButton5.Checked)
-            {
-                label5.Visible = true;
-                if (textBox5.Text != "")
-                {
-                    localComp.VideoCapacity = Convert.ToInt32(textBox5.Text);
-                    label5.Text = "Поле успешно изменено";
-                }
-                else
-                {
-                    label5.Text = "Введите новое значение!";
-                }
-            }
-
-            if (radioButton6.Checked)
-            {
-                label6.Visible = true;
-                if (textBox6.Text != "")
-                {
-                    localComp.PowerUnit = Convert.ToInt32(textBox6.Text);
-                    label6.Text = "Поле успешно изменено";
-                }
-                else
-                {
-                    label6.Text = "Введите новое значение!";
-                }
-            }
-
-            if (radioButton7.Checked)
-            {
-                label7.Visible = true;
-                if (textBox7.Text != "")
-                {
-                    localComp.ComputerCost = Convert.ToInt32(textBox7.Text);
-                    label7.Text = "Поле успешно изменено";
-                }
-                else
-                {
-                    label7.Text = "Введите новое значение!";
-                }
+                MessageBox.Show(ex.Message);
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
+                label4.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
             }
         }
     }

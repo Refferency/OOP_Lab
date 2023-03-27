@@ -32,16 +32,17 @@ namespace OOP_Lab2
 
             if(Computer.computers.Count != 0)
             {
-                comp_str = " | ";
+                comp_str = "| ";
             }
 
             foreach (Computer computer in Computer.computers)
             {
-                
+                isComp = true; 
                 comp_str += computer.ComputerID + " | ";
             }
-            
+
             label2.Text = comp_str;
+            label3.Text = Computer.ComputerCount.ToString();
         }
     }
 }

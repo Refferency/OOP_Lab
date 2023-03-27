@@ -22,6 +22,7 @@ namespace OOP_Lab2
         /// Список компьютеров
         /// </summary>
         public static List<Computer> computers = new List<Computer>();
+        static private int computerCount = 0;
 
 
 
@@ -31,6 +32,7 @@ namespace OOP_Lab2
         public Computer()
         {
             computerID = idGenerator(computerID);
+            computerCount += 1;
         }
         /// <summary>
         /// Пустой компьютер с предварительной ценой
@@ -40,6 +42,7 @@ namespace OOP_Lab2
         {
             computerID = idGenerator(computerID);
             this.computerCost = computerCost;
+            computerCount += 1;
         }
 
         /// <summary>
@@ -53,7 +56,7 @@ namespace OOP_Lab2
             computerID = idGenerator(computerID);
             this.processorType = type;
             this.processorFrequency = processorFrequency;
-
+            computerCount += 1;
         }
 
         /// <summary>
@@ -77,6 +80,7 @@ namespace OOP_Lab2
             this.videoCard = videoCard;
             this.videoCapacity = videoCapacity;
             this.powerUnit = powerUnit;
+            computerCount += 1;
         }
 
         /// <summary>
@@ -126,5 +130,6 @@ namespace OOP_Lab2
         public int VideoCapacity { get => videoCapacity; set => videoCapacity = value; }
         public int PowerUnit { get => powerUnit; set => powerUnit = value; }
         public string ComputerID { get => computerID; set => computerID = value; }
+        static public int ComputerCount { get => computerCount; }
     }
 }

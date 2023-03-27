@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -59,39 +60,48 @@ namespace OOP_Lab2
 
         private void button5_Click(object sender, EventArgs e)
         {
-
-            Computer computer = null;
-            switch (status)
+            try
             {
-                case "price": //пустой с ценой
-                    int computerCost = Convert.ToInt32(textBox3.Text);
-                    computer = new Computer(computerCost);           
-                    break;
+            
+                Computer computer = null;
+                switch (status)
+                {
+                    case "price": //пустой с ценой
+                        int computerCost = MyException.isInteger(textBox3.Text, "поле цена");
+                        computer = new Computer(computerCost);           
+                        break;
 
-                case "processor": //с процессором
-                    String processorType = textBox1.Text;
-                    double processorFrequency = Convert.ToDouble(textBox2.Text);
-                    computer = new Computer(processorType, processorFrequency);    
-                    break;
+                    case "processor": //с процессором
+                        
+                        String processorType = MyException.isString(textBox1.Text, "поле тип процессора");
+                        double processorFrequency = MyException.isDouble(textBox2.Text, "поле частота процессора");
+                        computer = new Computer(processorType, processorFrequency);    
+                        break;
 
-                case "fullComp": //полный
-                    String processorType2 = textBox1.Text;
-                    double processorFrequency2 = Convert.ToDouble(textBox2.Text);
-                    int computerCost2 = Convert.ToInt32(textBox3.Text);
-                    int memoryCapacity = Convert.ToInt32(textBox4.Text);
-                    String videoCard = textBox5.Text;
-                    int videoCapacity = Convert.ToInt32(textBox6.Text);
-                    int powerUnit = Convert.ToInt32(textBox7.Text);
-                    computer = new Computer(processorType2, processorFrequency2, memoryCapacity, computerCost2,
-                        videoCard, videoCapacity, powerUnit);
-                    break;
-                default:
-                    break;
+                    case "fullComp": //полный
+                        String processorType2 = MyException.isString(textBox1.Text, "поле тип процессора");
+                        double processorFrequency2 = MyException.isDouble(textBox2.Text, "поле частота процессора");
+                        int computerCost2 = MyException.isInteger(textBox3.Text, "поле цена");
+                        int memoryCapacity = MyException.isInteger(textBox4.Text, "поле объем ОЗУ");
+                        String videoCard = MyException.isString(textBox5.Text, "поле тип видеокарты");
+                        int videoCapacity = MyException.isInteger(textBox6.Text, "поле объем видеопамяти");
+                        int powerUnit = MyException.isInteger(textBox7.Text, "поле мощность БП");
+                        computer = new Computer(processorType2, processorFrequency2, memoryCapacity, computerCost2,
+                            videoCard, videoCapacity, powerUnit);
+                        break;
+                    default:
+                        break;
+                }
+            
+                Computer.computers.Add(computer);
+
+                label8.Visible = true;
+                label8.Text = $"Компьютер с ID:{computer.ComputerID} успешно добавлен в базу";
             }
-            Computer.computers.Add(computer);
-
-            label8.Visible = true;
-            label8.Text = $"Компьютер с ID:{computer.ComputerID} успешно добавлен в базу";
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void CreateCompMore_Load(object sender, EventArgs e)
@@ -105,9 +115,5 @@ namespace OOP_Lab2
             ComputerUI ui = new ComputerUI();
             ui.Show();
         }
-
-
-        //если юзер вводит например вместо double string, объеем видеопамяти -ифыам фафы, можно подключить свой самописный exception
-        //который будет очищать текстбокс и выводить юзеру сообщение о том, что он еблойд тупой, и объем видео не может быть ываиываы
     }
 }

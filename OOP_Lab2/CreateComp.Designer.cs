@@ -94,9 +94,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(174, 44);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(149, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(227, 13);
+            this.label1.Size = new System.Drawing.Size(284, 16);
             this.label1.TabIndex = 14;
             this.label1.Text = "Успешно добавлен пустой компьютер с ID:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -105,6 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(583, 450);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
@@ -115,7 +117,7 @@
             this.Controls.Add(this.button1);
             this.Name = "CreateComp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CreateComp";
+            this.Text = "Создать компьютер";
             this.Load += new System.EventHandler(this.CreateComp_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

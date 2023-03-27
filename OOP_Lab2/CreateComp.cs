@@ -17,14 +17,10 @@ namespace OOP_Lab2
             InitializeComponent();
         }
 
-       
-
         private void CreateComp_Load(object sender, EventArgs e)
         {
             label1.Visible = false;
         }
-
-        //добавить пустой компьютер
         private void button1_Click(object sender, EventArgs e)
         {
             label1.Text = "Успешно добавлен пустой компьютер с ID:";
