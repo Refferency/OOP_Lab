@@ -12,18 +12,17 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace OOP_Lab2
 {
-    public partial class CreateCompMore : Form
+    /// <summary>
+    /// Расширенный создатель экземпляров
+    /// </summary>
+    public partial class CreateCompMore : Form 
     {
         private string status = "";
 
-        public CreateCompMore()
-        {
-            InitializeComponent();
-           
-        }
-
         public CreateCompMore(string param)
         {
+            CompCollection.createComp += CreateComp.createCompMessage;
+
             status = param;
             InitializeComponent();
             if (status == "price")
@@ -92,21 +91,12 @@ namespace OOP_Lab2
                     default:
                         break;
                 }
-            
-                Computer.computers.Add(computer);
-
-                label8.Visible = true;
-                label8.Text = $"Компьютер с ID:{computer.ComputerID} успешно добавлен в базу";
+                CompCollection.add(computer);
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Win32.MessageBox(0, ex.Message, "Ошибка!", 0);
             }
-        }
-
-        private void CreateCompMore_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -114,6 +104,16 @@ namespace OOP_Lab2
             this.Hide();
             ComputerUI ui = new ComputerUI();
             ui.Show();
+        }
+
+        private void CreateCompMore_Load(object sender, EventArgs e)
+        {
+            CompCollection.createComp += CreateComp.createCompMessage;
+        }
+
+        private void CreateCompMore_VisibleChanged(object sender, EventArgs e)
+        {
+            CompCollection.createComp -= CreateComp.createCompMessage;
         }
     }
 }

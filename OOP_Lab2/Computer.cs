@@ -6,43 +6,35 @@ using System.Threading.Tasks;
 
 namespace OOP_Lab2
 {
-    class Computer
+    public class Computer
     {
-        private String computerID;
-        private String processorType = "Отсутствует";
-        //тип процессора //(intel_x86, apple_arm, qualcomm_arm)
-        private double processorFrequency = 0;   //частота процессора
-        private int memoryCapacity = 0; //объем озу
-        private String videoCard = "Отсутствует"; //модель видеокарты
-        private int videoCapacity = 0; //объем видеопамяти
-        private int powerUnit = 0; //мощность блока питания
-        private int computerCost = 0; //цена компьютера
+        private String computerID;                    //id компьютера
+        private String processorType = "Отсутствует"; //тип процессора
+        private double processorFrequency = 0;        //частота процессора
+        private int memoryCapacity = 0;               //объем озу
+        private String videoCard = "Отсутствует";     //модель видеокарты
+        private int videoCapacity = 0;                //объем видеопамяти
+        private int powerUnit = 0;                    //мощность блока питания
+        private int computerCost = 0;                 //цена компьютера
 
-        /// <summary>
-        /// Список компьютеров
-        /// </summary>
-        public static List<Computer> computers = new List<Computer>();
-        static private int computerCount = 0;
+        public static int compNumber = 0;             //кол.во компов
 
-
-
-        /// <summary>
+        // <summary>
         /// Пустой компьютер
         /// </summary>
         public Computer()
         {
-            computerID = idGenerator(computerID);
-            computerCount += 1;
+            computerID = idGenerator();
         }
+
         /// <summary>
         /// Пустой компьютер с предварительной ценой
         /// </summary>
         /// <param name="computerCost"></param>
         public Computer(int computerCost)
         {
-            computerID = idGenerator(computerID);
+            computerID = idGenerator();
             this.computerCost = computerCost;
-            computerCount += 1;
         }
 
         /// <summary>
@@ -53,10 +45,9 @@ namespace OOP_Lab2
         public Computer(String type, double processorFrequency)
 
         {
-            computerID = idGenerator(computerID);
+            computerID = idGenerator();
             this.processorType = type;
             this.processorFrequency = processorFrequency;
-            computerCount += 1;
         }
 
         /// <summary>
@@ -72,7 +63,7 @@ namespace OOP_Lab2
         public Computer(string processorType, double processorFrequency, int memoryCapacity,
             int computerCost, string videoCard, int videoCapacity, int powerUnit)
         {
-            computerID = idGenerator(computerID);
+            computerID = idGenerator();
             this.processorType = processorType;
             this.processorFrequency = processorFrequency;
             this.memoryCapacity = memoryCapacity;
@@ -80,19 +71,18 @@ namespace OOP_Lab2
             this.videoCard = videoCard;
             this.videoCapacity = videoCapacity;
             this.powerUnit = powerUnit;
-            computerCount += 1;
         }
 
         /// <summary>
-        /// Генерирует id, затем конвертирует его в 16-ричное представление
+        /// Генерирует id
         /// </summary>
         /// <param name="computerID"></param>
         /// <returns>Сгенерированный id</returns>
-        private String idGenerator(String computerID)
+        private String idGenerator()
         {
             Random random = new Random();
-            computerID = random.Next(1, 129).ToString();
-
+            compNumber++;
+            computerID = compNumber.ToString();
             return computerID;
         }
 
@@ -130,6 +120,5 @@ namespace OOP_Lab2
         public int VideoCapacity { get => videoCapacity; set => videoCapacity = value; }
         public int PowerUnit { get => powerUnit; set => powerUnit = value; }
         public string ComputerID { get => computerID; set => computerID = value; }
-        static public int ComputerCount { get => computerCount; }
     }
 }

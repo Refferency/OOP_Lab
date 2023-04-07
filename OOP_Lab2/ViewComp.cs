@@ -10,39 +10,25 @@ using System.Windows.Forms;
 
 namespace OOP_Lab2
 {
+    /// <summary>
+    /// Вывод списка экземпляров
+    /// </summary>
     public partial class ViewComp : Form
     {
         public ViewComp()
         {
             InitializeComponent();
         }
-
+        private void ViewComp_Load(object sender, EventArgs e)
+        {            
+            label2.Text = CompCollection.print(); //список пк по ID
+            label4.Text = CompCollection.getComputerCount().ToString(); //их кол.во
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
             ComputerUI ui = new ComputerUI();
             ui.Show();
-        }
-
-        private void ViewComp_Load(object sender, EventArgs e)
-        {
-            String comp_str = "Пока что не добавлено ни одного компьютера";
-            bool isComp = false;
-
-
-            if(Computer.computers.Count != 0)
-            {
-                comp_str = "| ";
-            }
-
-            foreach (Computer computer in Computer.computers)
-            {
-                isComp = true; 
-                comp_str += computer.ComputerID + " | ";
-            }
-
-            label2.Text = comp_str;
-            label3.Text = Computer.ComputerCount.ToString();
         }
     }
 }

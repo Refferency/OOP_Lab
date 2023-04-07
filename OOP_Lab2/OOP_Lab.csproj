@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompCollection.cs" />
     <Compile Include="CompAction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,7 @@
     <Compile Include="ViewComp.Designer.cs">
       <DependentUpon>ViewComp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Win32.cs" />
     <EmbeddedResource Include="CompAction.resx">
       <DependentUpon>CompAction.cs</DependentUpon>
     </EmbeddedResource>

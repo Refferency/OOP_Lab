@@ -11,7 +11,6 @@ namespace OOP_Lab2
     {
         public MyException() : base() { }
         public MyException(string message) : base(message) { }
-        //public MyException(string message, Exception innerException) : base(message, innerException) { }
 
         public static string isString(string str, string where)
         {

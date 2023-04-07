@@ -10,223 +10,142 @@ using System.Windows.Forms;
 
 namespace OOP_Lab2
 {
-
-    //чекбокс с полем и спарва три кнопки (редактировать выбранное поле, вывести выбранное поле, вернуться назад)
+    /// <summary>
+    /// Редактор полей экземляров
+    /// </summary>
     public partial class EditComp : Form
     {
-        Computer localComp;
-        string localId;
+        private Computer localEditComp;
 
-        public EditComp()
+        public static void editCompMessage(string type, string value) => MessageBox.Show($"В поле {type} значение успешно заменено на {value}");
+        public static void printCompFieldMessage(string type, string value) => MessageBox.Show($"Значение поля {type} - {value}");
+
+        public EditComp(Computer localComp)
         {
             InitializeComponent();
+            localEditComp = localComp;
+            CompCollection.editComp += editCompMessage;
+            CompCollection.printCompField += printCompFieldMessage;
         }
 
-        public EditComp(string ID)
-        {
-            InitializeComponent();
-            foreach (Computer computer in Computer.computers)
-            {
-                if (computer.ComputerID == ID)
-                {
-                    localId = ID;
-                    localComp = computer;
-                }
-            }
-        }
-
-        private void EditComp_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        //вывести выбранное поле
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            CompAction createAct = new CompAction(localId); 
-            createAct.Show();       
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            label1.Visible = false;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            label6.Visible = false;
-            label7.Visible = false;
-
             if (radioButton1.Checked)
             {
-                label1.Visible = true;
-                label1.Text = localComp.ProcessorType;
+                CompCollection.printField(localEditComp, "ProcessorType");
             }
 
             if (radioButton2.Checked)
             {
-                label2.Visible = true;
-                label2.Text = Convert.ToString(localComp.ProcessorFrequency);
+                CompCollection.printField(localEditComp, "ProcessorFrequency");
             }
 
             if (radioButton3.Checked)
             {
-                label3.Visible = true;
-                label3.Text = Convert.ToString(localComp.MemoryCapacity);
+                CompCollection.printField(localEditComp, "MemoryCapacity");
             }
 
             if (radioButton4.Checked)
             {
-                label4.Visible = true;
-                label4.Text = localComp.VideoCard;
+                CompCollection.printField(localEditComp, "VideoCard");
             }
 
             if (radioButton5.Checked)
             {
-                label5.Visible = true;
-                label5.Text = Convert.ToString(localComp.VideoCapacity);
+                CompCollection.printField(localEditComp, "VideoCapacity");
             }
 
             if (radioButton6.Checked)
             {
-                label6.Visible = true;
-                label6.Text = Convert.ToString(localComp.PowerUnit);
+                CompCollection.printField(localEditComp, "PowerUnit");
             }
 
             if (radioButton7.Checked)
             {
-                label7.Visible = true;
-                label7.Text = Convert.ToString(localComp.ComputerCost);
+                CompCollection.printField(localEditComp, "ComputerCost");
             }
         }
 
 
-        //изменить выбранные поля
-        private void button3_Click(object sender, EventArgs e)
+        //изменить выбранное поле
+        private void button2_Click(object sender, EventArgs e)
         {
-            label1.Visible = false;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            label6.Visible = false;
-            label7.Visible = false;
             try
             {
 
                 if (radioButton1.Checked)
                 {
-                    label1.Visible = true;
-                    if (textBox1.Text != "")
-                    {
-                        localComp.ProcessorType = MyException.isString(textBox1.Text, "поле процессор");
-                        label1.Text = "Поле успешно изменено";
-                    }
-                    else
-                    {
-                        label1.Text = "Введите новое значение!";
-                    }
+                    string newProcessorType = MyException.isString(textBox1.Text, "поле процессор");
+                    CompCollection.editField(localEditComp, "ProcessorType", newProcessorType);
+                    textBox1.Text = "";
                 }
 
                 if (radioButton2.Checked)
                 {
-                    label2.Visible = true;
-                    if (textBox2.Text != "")
-                    {
-                        localComp.ProcessorFrequency = MyException.isDouble(textBox2.Text, "поле частота процессора");
-                        label2.Text = "Поле успешно изменено";
-                    }
-                    else
-                    {
-                        label2.Text = "Введите новое значение!";
-                    }
+                    string newProcessorFrequency = MyException.isDouble(textBox2.Text, "поле частота процессора").ToString();
+                    CompCollection.editField(localEditComp, "ProcessorFrequency", newProcessorFrequency);
+                    textBox2.Text = "";
                 }
 
                 if (radioButton3.Checked)
                 {
-                    label3.Visible = true;
-                    if (textBox3.Text != "")
-                    {
-                        localComp.MemoryCapacity = MyException.isInteger(textBox3.Text, "поле объем ОЗУ");
-                        
-                        label3.Text = "Поле успешно изменено";
-                    }
-                    else
-                    {
-                        
-                        label3.Text = "Введите новое значение!";
-                    }
+                    string newMemoryCapacity = MyException.isInteger(textBox3.Text, "поле объем ОЗУ").ToString(); ;
+                    CompCollection.editField(localEditComp, "MemoryCapacity", newMemoryCapacity);
+                    textBox3.Text = "";
                 }
 
                 if (radioButton4.Checked)
                 {
-                    label4.Visible = true;
-                    if (textBox4.Text != "")
-                    {
-                        localComp.VideoCard = MyException.isString(textBox4.Text, "поле тип видеокарты");
-                        
-                        label4.Text = "Поле успешно изменено";
-                    }
-                    else
-                    {
-                        
-                        label4.Text = "Введите новое значение!";
-                    }
+                    string newVideoCard = MyException.isString(textBox4.Text, "поле тип видеокарты");
+                    CompCollection.editField(localEditComp, "VideoCard", newVideoCard);
+                    textBox4.Text = "";
                 }
 
                 if (radioButton5.Checked)
                 {
-                    label5.Visible = true;
-                    if (textBox5.Text != "")
-                    {
-                        localComp.VideoCapacity = MyException.isInteger(textBox5.Text, "поле объем видеопамяти");
-                        label5.Text = "Поле успешно изменено";
-                    }
-                    else
-                    {
-                        label5.Text = "Введите новое значение!";
-                    }
+                    string newVideoCapacity = MyException.isInteger(textBox5.Text, "поле объем видеопамяти").ToString();
+                    CompCollection.editField(localEditComp, "VideoCapacity", newVideoCapacity);
+                    textBox5.Text = "";
                 }
 
                 if (radioButton6.Checked)
                 {
-                    label6.Visible = true;
-                    if (textBox6.Text != "")
-                    {
-                        localComp.PowerUnit = MyException.isInteger(textBox6.Text, "поле мощность БП");
-                        label6.Text = "Поле успешно изменено";
-                    }
-                    else
-                    {
-                        label6.Text = "Введите новое значение!";
-                    }
+                    string newPowerUnit = MyException.isInteger(textBox6.Text, "поле мощность БП").ToString();
+                    CompCollection.editField(localEditComp, "PowerUnit", newPowerUnit);
+                    textBox6.Text = "";
                 }
 
                 if (radioButton7.Checked)
-                {
-                    label7.Visible = true;
-                    if (textBox7.Text != "")
-                    {
-                        localComp.ComputerCost = MyException.isInteger(textBox7.Text, "поле цена");
-                        label7.Text = "Поле успешно изменено";
-                    }
-                    else
-                    {
-                        label7.Text = "Введите новое значение!";
-                    }
+                {            
+                    string newComputerCost = MyException.isInteger(textBox7.Text, "поле цена").ToString();
+                    CompCollection.editField(localEditComp, "ComputerCost", newComputerCost);
+                    textBox7.Text = "";
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                label1.Visible = false;
-                label2.Visible = false;
-                label3.Visible = false;
-                label4.Visible = false;
-                label5.Visible = false;
-                label6.Visible = false;
-                label7.Visible = false;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CompAction createAct = new CompAction(localEditComp.ComputerID);
+            createAct.Show();
+        }
+
+        private void EditComp_Load(object sender, EventArgs e)
+        {
+            CompCollection.printCompField += printCompFieldMessage;
+            CompCollection.editComp += editCompMessage;
+        }
+
+        private void EditComp_VisibleChanged(object sender, EventArgs e)
+        {
+            CompCollection.editComp -= editCompMessage;
+            CompCollection.printCompField -= printCompFieldMessage;
         }
     }
 }

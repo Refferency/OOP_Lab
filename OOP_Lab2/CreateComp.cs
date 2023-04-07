@@ -10,35 +10,34 @@ using System.Windows.Forms;
 
 namespace OOP_Lab2
 {
-    public partial class CreateComp : Form
+    /// <summary>
+    /// начальная страница для создания экземпляров
+    /// </summary>
+    public partial class CreateComp : Form 
     {
+        /// <summary>
+        /// Обработчик события
+        /// </summary>
+        /// <param name="message"></param>
+        public static void createCompMessage(string message) => MessageBox.Show(message);
+
         public CreateComp()
         {
             InitializeComponent();
+            CompCollection.createComp += createCompMessage;
         }
 
-        private void CreateComp_Load(object sender, EventArgs e)
-        {
-            label1.Visible = false;
-        }
         private void button1_Click(object sender, EventArgs e)
         {
-            label1.Text = "Успешно добавлен пустой компьютер с ID:";
+ 
             Computer computer = new Computer();
-            Computer.computers.Add(computer);
-            label1.Visible = true;
-            label1.Text += computer.ComputerID;
+            CompCollection.add(computer);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-
-
             CreateCompMore ccm = new CreateCompMore("price");
-
-
-
             ccm.Show();
         }
 
@@ -61,6 +60,18 @@ namespace OOP_Lab2
             this.Hide();
             ComputerUI ui = new ComputerUI();
             ui.Show();
+        }
+
+        private void CreateComp_Load(object sender, EventArgs e)
+        {
+            CompCollection.createComp += createCompMessage;
+            //*при использование множества форм и операции += ивент может добавить метод несколько раз,
+            //поэтому его нужно добавить два раза в конструкторе и лоаде, а затем один раз удалить VisibleChanged(show,hide текущей формы)
+            //без этого обработчик событий работает через жопу
+        }
+        private void CreateComp_VisibleChanged(object sender, EventArgs e)
+        {
+            CompCollection.createComp -= createCompMessage;
         }
     }
 }
